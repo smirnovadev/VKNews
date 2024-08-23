@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="navigation_item_main">Главная</string>
+    <string name="navigation_item_favorite">Избранное</string>
+    <string name="navigation_item_profile">Профиль</string>
+    <string name="text">paddingValues: Scaffold передает paddingValues в лямбду content, чтобы вы могли корректно учитывать все необходимые отступы в вашем интерфейсе.
+Modifier.padding(paddingValues): Применение этих отступов к основному содержимому экрана (Box в данном случае) гарантирует, что ваше содержимое не будет перекрыто системными элементами интерфейса.</string>
+
 </resources>
