@@ -1,6 +1,8 @@
 package com.example.myapplication.navigation
 
+import android.net.Uri
 import com.example.myapplication.domain.FeedPost
+import com.google.gson.Gson
 
 sealed class Screen(
     val route: String
@@ -13,16 +15,21 @@ sealed class Screen(
 
         private const val ROUTE_FOR_ARGS = "comments"
         fun getRouteWithArgs(feedPost: FeedPost): String {
-            return "$ROUTE_FOR_ARGS/${feedPost.id}"
+            val feedPostJson = Gson().toJson(feedPost)
+            return "$ROUTE_FOR_ARGS/${feedPostJson.endcode()}"
         }
     }
 
-     companion object {
-        const val KEY_FEED_POST_ID = "feed_post_id"
+    companion object {
+        const val KEY_FEED_POST = "feed_post"
         const val ROUTE_HOME = "home"
-        const val ROUTE_COMMENT = "comments/{$KEY_FEED_POST_ID}"
+        const val ROUTE_COMMENT = "comments/{$KEY_FEED_POST}"
         const val ROUTE_NEWS_FEED = "news_feed"
         const val ROUTE_FAVORITE = "favorite"
         const val ROUTE_PROFILE = "profile"
     }
+}
+
+fun String.endcode(): String {
+    return Uri.encode(this)
 }

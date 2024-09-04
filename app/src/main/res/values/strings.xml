@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">VK News Feed</string>
     <string name="navigation_item_main">Главная</string>
     <string name="navigation_item_favorite">Избранное</string>
     <string name="navigation_item_profile">Профиль</string>
     <string name="text">Применение этих отступов к основному содержимому экрана (Box в данном случае) гарантирует, что ваше содержимое не будет перекрыто системными элементами интерфейса.</string>
+    <string name="button_login">Войти</string>
+    <integer name="com_vk_sdk_AppId">52235295</integer>
 
 </resources>

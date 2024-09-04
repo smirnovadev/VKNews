@@ -1,11 +1,10 @@
-package com.example.myapplication
+package com.example.myapplication.presentation.comments
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.domain.FeedPost
 import com.example.myapplication.domain.PostComment
-import com.example.myapplication.ui.theme.CommentsScreenState
 
 class CommentsViewModel(
     feedPost: FeedPost

@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme
+package com.example.myapplication.presentation.comments
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -31,8 +31,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.CommentsViewModel
-import com.example.myapplication.CommentsViewModelFactory
 import com.example.myapplication.domain.FeedPost
 import com.example.myapplication.domain.PostComment
 
@@ -57,7 +55,8 @@ fun CommentsScreen(
                         containerColor = MaterialTheme.colorScheme.primary
                     ),
                     title = {
-                        Text(text = "Комментарии для поста ${currentState.feedPost.id}")
+                        Text(text = "Комментарии для поста ${currentState.feedPost.id} " +
+                                "Текст поста ${currentState.feedPost.contentText}")
                     },
                     navigationIcon = {
                         IconButton(onClick = {onBackPressed() }) {

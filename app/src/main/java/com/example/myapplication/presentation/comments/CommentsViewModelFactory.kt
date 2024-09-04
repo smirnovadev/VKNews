@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.presentation.comments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

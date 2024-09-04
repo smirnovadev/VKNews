@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme
+package com.example.myapplication.presentation.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -17,6 +17,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.navigation.AppNavGraph
 import com.example.myapplication.navigation.rememberNavigationState
+import com.example.myapplication.presentation.comments.CommentsScreen
+import com.example.myapplication.presentation.news.NewsFeedScreen
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -64,12 +66,11 @@ fun MainScreen() {
         AppNavGraph(
             navHostController = navigationState.navHostController,
             newsFeedScreenContent = {
-                HomeScreen(onCommentClickListener = {
+                NewsFeedScreen(onCommentClickListener = {
                     navigationState.navigateToComments(it)
-                }
-                )
+                })
             },
-            commentsScreenContent = {feedPost ->
+            commentsScreenContent = { feedPost ->
                 CommentsScreen(
                     onBackPressed = {
                         navigationState.navHostController.popBackStack()

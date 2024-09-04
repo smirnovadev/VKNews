@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme
+package com.example.myapplication.presentation.comments
 
 import com.example.myapplication.domain.FeedPost
 import com.example.myapplication.domain.PostComment

@@ -61,7 +61,20 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("com.google.code.gson:gson:2.10")
     implementation("androidx.compose.material3:material3")
+    implementation("com.vk:android-sdk-core:4.0.1")
+    implementation("com.vk:android-sdk-api:4.0.1")
+    implementation("io.coil-kt:coil-compose:2.1.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("io.coil-kt:coil:2.2.2")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+
+    implementation("io.coil-kt:coil:2.2.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
