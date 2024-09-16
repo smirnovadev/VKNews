@@ -46,12 +46,14 @@ class NewsFeedMapper {
                         type = StatisticType.COMMENTS,
                         count = post.comments.count
                     )
-                )
+                ),
+                isFavourite = post.isFavourite
             )
             result.add(feedPost)
         }
         return result
     }
+
     private fun mapTimestampToDate(timesTape: Long): String {
         val date = Date(timesTape)
         return SimpleDateFormat("d MMMM yyyy, hh:mm", Locale.getDefault()).format(date)

@@ -1,20 +1,30 @@
 package com.example.myapplication.presentation.news
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.DismissDirection
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SwipeToDismiss
-import androidx.compose.material3.rememberDismissState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.domain.FeedPost
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -57,17 +67,32 @@ private fun FeedPosts(
             items = posts,
             key = { it.id })
         { feedPost ->
-            val dismissState = rememberDismissState()
-            if (dismissState.isDismissed(DismissDirection.EndToStart)) {
+
+            val dismissState = rememberSwipeToDismissBoxState()
+
+            if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
                 viewModel.remove(feedPost)
             }
-            SwipeToDismiss(
-                modifier = Modifier.animateItemPlacement(),
-                state = dismissState,
-                directions = setOf(DismissDirection.EndToStart),
-                background = {},
-                dismissContent = {
 
+            SwipeToDismissBox(
+                state = dismissState,
+                backgroundContent = {
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Red), // Фон при свайпе
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete",
+                            tint = Color.White,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+                },
+                content = {
                     PostCard(
                         feedPost = feedPost,
                         onViewsClickListener = { statisticItem ->
@@ -83,7 +108,8 @@ private fun FeedPosts(
                             viewModel.updateCount(statisticItem, feedPost)
                         },
                     )
-                })
+                }
+            )
         }
     }
 }
