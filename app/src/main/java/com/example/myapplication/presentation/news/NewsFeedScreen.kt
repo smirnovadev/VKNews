@@ -22,8 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.domain.FeedPost
+import org.koin.androidx.compose.getViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -31,7 +31,7 @@ import com.example.myapplication.domain.FeedPost
 fun NewsFeedScreen(
     onCommentClickListener: (FeedPost) -> Unit
 ) {
-    val viewModel: NewsFeedViewMode = viewModel()
+    val viewModel: NewsFeedViewMode = getViewModel()
     val screenState = viewModel.screenState.observeAsState(NewsFeedScreenState.Initial)
 
     when (val currentState = screenState.value) {

@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.theme.MyApplicationTheme
 import com.vk.id.AccessToken
 import com.vk.id.onetap.common.OneTapOAuth
+import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Log.d("MainScreen", "Main ScreenOpen")
             MyApplicationTheme {
-                val viewModel: MainViewModel = viewModel()
+                val viewModel: MainViewModel = getViewModel()
                 val authState = viewModel.authState.observeAsState(AuthState.Initial)
                 when (authState.value) {
                     is AuthState.Authorized -> {
@@ -32,7 +32,9 @@ class MainActivity : ComponentActivity() {
                                 "MainScreen",
                                 "Successfully authorized with token: ${accessToken.token}"
                             )
-                            viewModel.saveAccessToken(accessToken)
+                            viewModel.saveToken(accessToken.token)
+                            Log.d("MainScreen", "savetoken:  ${accessToken.token} ")
+
                         })
                     }
 

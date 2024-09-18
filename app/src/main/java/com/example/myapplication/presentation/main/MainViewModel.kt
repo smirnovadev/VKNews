@@ -1,25 +1,34 @@
 package com.example.myapplication.presentation.main
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.vk.id.AccessToken
+import androidx.lifecycle.ViewModel
+import com.example.myapplication.domain.api.GetTokenUseCase
+import com.example.myapplication.domain.api.SaveTokenUseCase
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(
+    private val getTokenUseCase: GetTokenUseCase,
+    private val saveTokenUseCase: SaveTokenUseCase
+) : ViewModel() {
 
     private val _authState = MutableLiveData<AuthState>(AuthState.Initial)
     val authState: LiveData<AuthState> = _authState
 
     init {
-        _authState.value = if (false) {
+        val token = getAccessToken()
+        _authState.value = if (token != null) {
             AuthState.Authorized
         } else {
             AuthState.NotAuthorized
         }
     }
 
-    fun saveAccessToken(token: AccessToken) {
-        //TODO (save token shared pref)
+    private fun getAccessToken(): String? {
+        val token = getTokenUseCase.getToken()
+        return token
     }
+    fun saveToken(token: String) {
+        saveTokenUseCase.saveToken(token)
+    }
+
 }

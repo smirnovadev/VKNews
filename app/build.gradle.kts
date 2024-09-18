@@ -21,10 +21,10 @@ android {
         }
         addManifestPlaceholders(
             mapOf(
-                "VKIDClientID" to "52235295", // ID вашего приложения (app_id).
-                "VKIDClientSecret" to "xBXe0cmMnBQDTniRiFIk", // Ваш защищенный ключ (client_secret).
-                "VKIDRedirectHost" to "vk.com", // Обычно используется vk.com.
-                "VKIDRedirectScheme" to "vk52235295", // Обычно используется vk{ID приложения}.
+                "VKIDClientID" to "52235295",
+                "VKIDClientSecret" to "xBXe0cmMnBQDTniRiFIk",
+                "VKIDRedirectHost" to "vk.com",
+                "VKIDRedirectScheme" to "vk52235295",
             )
         )
     }
@@ -98,4 +98,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    //dependencies
+    implementation ("io.insert-koin:koin-core:3.4.0")
+    implementation ("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.4.0")
 }

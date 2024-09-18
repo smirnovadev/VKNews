@@ -1,21 +1,43 @@
 package com.example.myapplication.presentation.news
 
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.model.mapper.NewsFeedMapper
+import com.example.myapplication.data.network.ApiFactory
 import com.example.myapplication.domain.FeedPost
 import com.example.myapplication.domain.StatisticItem
+import com.example.myapplication.domain.api.GetTokenUseCase
+import kotlinx.coroutines.launch
 
-class NewsFeedViewMode(application: Application) : AndroidViewModel(application) {
+class NewsFeedViewMode(
+    private val getTokenUseCase: GetTokenUseCase,
+
+) : ViewModel() {
 
 
     private val initialState = NewsFeedScreenState.Initial
     private val _screenState = MutableLiveData<NewsFeedScreenState>(initialState)
     val screenState: LiveData<NewsFeedScreenState> = _screenState
     private val mapper = NewsFeedMapper()
+
+    init {
+        loadRecommendations()
+    }
+
+    private fun loadRecommendations() {
+        viewModelScope.launch {
+            val token = getTokenUseCase.getToken() ?: return@launch
+            Log.d("token", "token is $token")
+            val response = ApiFactory.apiService.loadRecommendation(token)
+            val feedPosts = mapper.mapResponseToPosts(response)
+            _screenState.value = NewsFeedScreenState.Posts(posts = feedPosts)
+        }
+
+    }
 
     fun updateCount(item: StatisticItem, feedPost: FeedPost) {
 
@@ -55,4 +77,5 @@ class NewsFeedViewMode(application: Application) : AndroidViewModel(application)
         oldPosts.remove(feedPost)
         _screenState.value = NewsFeedScreenState.Posts(posts = oldPosts)
     }
+
 }
