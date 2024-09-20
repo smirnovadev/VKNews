@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.domain.api.GetTokenUseCase
 import com.example.myapplication.domain.api.SaveTokenUseCase
+import com.vk.id.AccessToken
 
 class MainViewModel(
     private val getTokenUseCase: GetTokenUseCase,
@@ -15,20 +16,22 @@ class MainViewModel(
     val authState: LiveData<AuthState> = _authState
 
     init {
-        val token = getAccessToken()
-        _authState.value = if (token != null) {
+        val accessToken = getAccessToken()
+        _authState.value = if (accessToken != null && isTokenValid(accessToken)) {
             AuthState.Authorized
         } else {
             AuthState.NotAuthorized
         }
     }
-
-    private fun getAccessToken(): String? {
+    private fun isTokenValid(accessToken: AccessToken): Boolean {
+        return accessToken.expireTime == -1L || accessToken.expireTime > System.currentTimeMillis()
+    }
+    private fun getAccessToken(): AccessToken? {
         val token = getTokenUseCase.getToken()
         return token
     }
-    fun saveToken(token: String) {
-        saveTokenUseCase.saveToken(token)
+   fun saveToken(accessToken: AccessToken) {
+        saveTokenUseCase.saveToken(accessToken)
     }
 
 }

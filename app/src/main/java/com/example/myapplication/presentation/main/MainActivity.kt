@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                                 "MainScreen",
                                 "Successfully authorized with token: ${accessToken.token}"
                             )
-                            viewModel.saveToken(accessToken.token)
+                            viewModel.saveToken(accessToken)
                             Log.d("MainScreen", "savetoken:  ${accessToken.token} ")
 
                         })

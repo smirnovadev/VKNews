@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     single<LocalStorageRepository> {
-        LocalStorageRepositoryImpl(get())
+        LocalStorageRepositoryImpl(get(), get())
     }
 }

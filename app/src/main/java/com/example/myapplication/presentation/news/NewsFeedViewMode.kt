@@ -32,7 +32,7 @@ class NewsFeedViewMode(
         viewModelScope.launch {
             val token = getTokenUseCase.getToken() ?: return@launch
             Log.d("token", "token is $token")
-            val response = ApiFactory.apiService.loadRecommendation(token)
+            val response = ApiFactory.apiService.loadRecommendation(token.token)
             val feedPosts = mapper.mapResponseToPosts(response)
             _screenState.value = NewsFeedScreenState.Posts(posts = feedPosts)
         }
